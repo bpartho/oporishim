@@ -1,0 +1,52 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+body {
+  font-family: var(--font-public-sans), system-ui, sans-serif;
+}
+
+/* Hero button */
+
+@keyframes arrowMove {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(6px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.group:hover .arrow-move {
+  animation: arrowMove 1s ease-in-out infinite;
+}
+/* zoom image */
+@keyframes zoomSoft {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.image-zoom {
+  animation: zoomSoft 2s ease-in-out forwards;
+}
+
+/* process section  */
+.stroke-text {
+  -webkit-text-stroke: 2px #0b2a8f;
+  color: transparent;
+}
+
+/* popup */
+
+.input {
+  @apply w-full border-b border-slate-300 bg-transparent py-2 outline-none focus:border-[#0B2C8F];
+}
