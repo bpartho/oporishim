@@ -38,8 +38,10 @@ export default function LatestBlogsSection() {
         </div>
 
         {/* Heading */}
-        <div className="text-center mb-20 relative z-10">
-          <h2 className="text-4xl font-semibold text-gray-900">Latest Blogs</h2>
+        <div className="mb-20 relative z-10">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-800">
+            Latest Blogs
+          </h2>
         </div>
 
         {/* Blog Cards */}
@@ -89,7 +91,7 @@ export default function LatestBlogsSection() {
         <div className="flex justify-center mt-16 relative z-10">
           <Link
             href="/blog"
-            className="px-8 py-3 rounded-full bg-red-500 text-white font-medium hover:bg-red-600 transition"
+            className="px-12 py-4 rounded-full bg-red-500 text-white font-semibold hover:bg-red-600 transition"
           >
             Explore More
           </Link>

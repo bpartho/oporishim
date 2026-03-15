@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Menu,
   X,
@@ -49,8 +49,23 @@ export default function Header() {
   const [mobileActive, setMobileActive] = useState<string | null>(null);
   const pathname = usePathname();
 
+  // useEffect(() => {
+  //   const onScroll = () => setScrolled(window.scrollY > 40);
+  //   window.addEventListener("scroll", onScroll);
+  //   return () => window.removeEventListener("scroll", onScroll);
+  // }, []);
+
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    // 1. Ekta function baniye check kora window ache kina
+    const onScroll = () => {
+      if (typeof window !== "undefined") {
+        setScrolled(window.scrollY > 40);
+      }
+    };
+
+    // 2. Browser-e ashar por prothom bar check kora
+    onScroll();
+
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);

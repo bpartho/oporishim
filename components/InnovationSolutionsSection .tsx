@@ -62,14 +62,14 @@ export default function InnovationSolutionsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-20"
+          className="text-start max-w-3xl mb-20 px-2"
         >
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
             Driving Innovation for Clients
             <br />
             to Compete in Digital Ecosystem
           </h2>
-          <p className="text-gray-600">
+          <p className="text-gray-600 text-xl mt-4 font-semibold">
             Design the future through innovation architecture to solve complex
             business challenges.
           </p>
@@ -88,7 +88,7 @@ export default function InnovationSolutionsSection() {
             >
               <Link href={item.href} className="group block h-full">
                 <div
-                  className={`relative h-full rounded-3xl p-10 overflow-hidden transition-all duration-500 ${
+                  className={`relative h-full rounded-xl p-10 overflow-hidden transition-all duration-500 ${
                     item.bgImage ? "" : item.bg
                   } ${
                     item.light
@@ -106,7 +106,7 @@ export default function InnovationSolutionsSection() {
                         className="object-cover"
                       />
                       {item.overlay && (
-                        <div className="absolute inset-0 bg-black/55" />
+                        <div className="absolute inset-0 bg-black/40" />
                       )}
                     </>
                   )}
@@ -117,13 +117,13 @@ export default function InnovationSolutionsSection() {
                       {item.title}
                     </h3>
 
-                    <p className="opacity-90 mb-6 leading-relaxed">
+                    <p className="opacity-90 mb-6 text-lg leading-relaxed">
                       {item.description}
                     </p>
 
                     <ul className="space-y-2 mb-8">
                       {item.points.map((point) => (
-                        <li key={point} className="text-sm opacity-90">
+                        <li key={point} className=" opacity-90">
                           {point}
                         </li>
                       ))}

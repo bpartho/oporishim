@@ -45,22 +45,21 @@ function Card({ step }: { step: (typeof steps)[0] }) {
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
       className="
-    group
-    relative
-    rounded-2xl
-    bg-white
-    p-8
-    pl-24
-    shadow-[0_15px_40px_rgba(0,0,0,0.06)]
-    transition-all
-    duration-300
-    hover:-translate-y-3
-    hover:shadow-[0_25px_60px_rgba(11,42,143,0.25)]
-
-    min-h-[220px]    /* ⭐ FIXED HEIGHT */
-    flex
-    flex-col
-  "
+        group
+        relative
+        rounded-2xl
+        bg-white
+        p-8
+        pl-24
+        shadow-[0_15px_40px_rgba(0,0,0,0.06)]
+        transition-all
+        duration-300
+        hover:-translate-y-3
+        hover:shadow-[0_25px_60px_rgba(11,42,143,0.25)]
+        min-h-[220px]
+        flex
+        flex-col
+      "
     >
       {/* Number (LEFT SIDE) */}
       <div className="absolute left-6 top-8 text-6xl font-extrabold text-transparent stroke-text transition-all duration-300 group-hover:text-[#0B2A8F]">
@@ -69,7 +68,6 @@ function Card({ step }: { step: (typeof steps)[0] }) {
 
       {/* Content */}
       <h3 className="text-xl font-bold text-[#0B2A8F]">{step.title}</h3>
-
       <p className="mt-3 leading-relaxed text-gray-700">{step.desc}</p>
 
       {/* Bottom bar */}
@@ -80,12 +78,17 @@ function Card({ step }: { step: (typeof steps)[0] }) {
 
 export default function ProcessSection() {
   const leftColumnRef = useRef<HTMLDivElement>(null);
-  const [leftHeight, setLeftHeight] = useState(0);
+  const [leftHeight, setLeftHeight] = useState<string | number>("auto");
 
   useEffect(() => {
     const updateHeight = () => {
       if (leftColumnRef.current) {
-        setLeftHeight(leftColumnRef.current.offsetHeight);
+        // Window check safely inside useEffect
+        if (window.innerWidth >= 1024) {
+          setLeftHeight(leftColumnRef.current.offsetHeight);
+        } else {
+          setLeftHeight("auto");
+        }
       }
     };
 
@@ -138,15 +141,7 @@ export default function ProcessSection() {
 
           {/* Middle Image */}
           <div className="order-1 lg:order-2 mb-8 lg:mb-0 flex justify-center">
-            <div
-              className="w-full lg:w-auto"
-              style={{
-                height:
-                  typeof window !== "undefined" && window.innerWidth >= 1024
-                    ? leftHeight
-                    : "auto",
-              }}
-            >
+            <div className="w-full lg:w-auto" style={{ height: leftHeight }}>
               <Image
                 src="/images/agile-method.svg"
                 alt="Middle"

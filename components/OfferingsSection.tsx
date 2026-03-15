@@ -134,7 +134,6 @@ const slideVariants = {
   exit: (direction: number) => ({ x: -80 * direction, opacity: 0 }),
 };
 
-// Modified variants for card sliding from right
 const cardVariants = {
   enter: (direction: number) => ({
     x: direction > 0 ? 150 : -150,
@@ -155,9 +154,14 @@ export default function OfferingsSection() {
   const [direction, setDirection] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(0);
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
+    const check = () => {
+      const width = window.innerWidth;
+      setWindowWidth(width);
+      setIsMobile(width < 768);
+    };
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
@@ -272,7 +276,7 @@ export default function OfferingsSection() {
             </div>
           </div>
 
-          {/* Cards */}
+          {/* Cards Section */}
           <div className="relative mt-3 md:mt-10">
             <div className="flex justify-center gap-4 md:gap-10 flex-wrap overflow-hidden py-4">
               <AnimatePresence mode="popLayout" custom={direction}>
@@ -282,11 +286,13 @@ export default function OfferingsSection() {
 
                   if (isMobile && !isActive) return null;
 
-                  const cardsToShow = isMobile
-                    ? 1
-                    : window.innerWidth < 1024
-                      ? 2
-                      : 3;
+                  let cardsToShow = 3;
+                  if (isMobile) {
+                    cardsToShow = 1;
+                  } else if (windowWidth > 0 && windowWidth < 1024) {
+                    cardsToShow = 2;
+                  }
+
                   const cardIndexDiff =
                     (i - activeCardIndex + slide.cards.length) %
                     slide.cards.length;
@@ -302,7 +308,6 @@ export default function OfferingsSection() {
 
                   return (
                     <motion.div
-                      // ✅ UNIQUE KEY FIX: Added active index to trigger animation
                       key={`${active}-${card.title}`}
                       layout
                       custom={direction}
@@ -337,7 +342,7 @@ export default function OfferingsSection() {
             </div>
           </div>
 
-          {/* Navigation Buttons */}
+          {/* Navigation Buttons (RESTORED STYLE) */}
           {isMobile && (
             <>
               <button

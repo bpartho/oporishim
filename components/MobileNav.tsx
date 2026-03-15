@@ -10,19 +10,37 @@ export default function MobileNavbar() {
 
   // Outside click close
   const ref = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
+    // Document check kora server-side error bondho korar jonno
+    if (typeof document === "undefined") return;
+
     function handleClick(e: MouseEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) {
         setOpen(false);
       }
     }
-    if (open) document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
+
+    if (open) {
+      document.addEventListener("mousedown", handleClick);
+    }
+
+    return () => {
+      if (typeof document !== "undefined") {
+        document.removeEventListener("mousedown", handleClick);
+      }
+    };
   }, [open]);
 
   // ESC close
   useEffect(() => {
-    const close = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    // Window check kora
+    if (typeof window === "undefined") return;
+
+    const close = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+
     window.addEventListener("keydown", close);
     return () => window.removeEventListener("keydown", close);
   }, []);
